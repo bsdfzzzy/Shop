@@ -1,0 +1,17 @@
+var mongoose = require('mongoose');
+
+var goodSchema = new mongoose.Schema({
+  //goodId: { type: String, unique: true, index: true },
+  name: { type: String, unique: true, index: true },
+  unit: String,
+  barcode: String,
+  price: { type: Number, default: 0 },
+  category: String,
+  discount: { type: Number, default: 0 }
+});
+
+goodSchema.static.saveGood = (schema, cb) => {
+    this.create(schema, cb);
+}
+
+module.exports = mongoose.model('Good', goodSchema);
