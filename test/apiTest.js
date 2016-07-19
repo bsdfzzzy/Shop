@@ -6,11 +6,11 @@ const app = require('../server');
 
 var url = 'http://localhost.com:3000';
 var newGood = {
-    name: 'newName',
-    unit: 'newUnit',
-    barcode: 'newBarcod',
-    price: 1,
-    category: 'newCategory'
+    name: '可口可乐',
+    unit: '瓶',
+    barcode: 'ITEM000000',
+    price: 3,
+    category: '食品'
 };
 
 describe('test post/good API', () => {
@@ -66,4 +66,22 @@ describe('test get/good and put/good API', () => {
             });
     });
 
+});
+
+describe('test post/buyGood API', () => {
+    var want = {input: [ITEM000000-3]};
+
+    it('should return json for tip', (done) => {
+        request(app)
+            .post('/api/buyGoods')
+            .send(want)
+            .expect(200)
+            .end((err, res) => {
+                if (err) {
+                    throw err;
+                }
+                res.body.totalPrice.should.equal(9);
+                done();
+            });
+    });
 });

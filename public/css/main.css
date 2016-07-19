@@ -8030,3 +8030,17 @@ label {
   -webkit-animation-delay: -500ms;
           animation-delay: -500ms;
 }
+.addOneThisGood {
+  width: 1em;
+  height: 1em;
+  border-radius: 2em;
+  font-size: 3em;
+  background: green;
+}
+.cutOneThisGood {
+  width: 1em;
+  height: 1em;
+  border-radius: 2em;
+  font-size: 3em;
+  background: red;
+}

@@ -222,33 +222,18 @@ var HomeActions = function () {
   function HomeActions() {
     _classCallCheck(this, HomeActions);
 
-    this.generateActions('getTwoCharactersSuccess', 'getTwoCharactersFail', 'voteFail');
+    this.generateActions('getAllGoodsSuccess', 'getAllGoodsFail', 'addOneThisGood', 'cutOneThisGood');
   }
 
   _createClass(HomeActions, [{
-    key: 'getTwoCharacters',
-    value: function getTwoCharacters() {
+    key: 'getAllGoods',
+    value: function getAllGoods() {
       var _this = this;
 
-      $.ajax({ url: '/api/characters' }).done(function (data) {
-        _this.actions.getTwoCharactersSuccess(data);
+      $.ajax({ url: '/api/goods' }).done(function (data) {
+        _this.actions.getAllGoodsSuccess(data);
       }).fail(function (jqXhr) {
-        _this.actions.getTwoCharactersFail(jqXhr.responseJSON.message);
-      });
-    }
-  }, {
-    key: 'vote',
-    value: function vote(winner, loser) {
-      var _this2 = this;
-
-      $.ajax({
-        type: 'PUT',
-        url: '/api/characters',
-        data: { winner: winner, loser: loser }
-      }).done(function () {
-        _this2.actions.getTwoCharacters();
-      }).fail(function (jqXhr) {
-        _this2.actions.voteFail(jqXhr.responseJSON.message);
+        _this.actions.getAllGoodsFail(jqXhr.responseJSON.message);
       });
     }
   }]);
@@ -1136,8 +1121,6 @@ var _HomeActions = require('../actions/HomeActions');
 
 var _HomeActions2 = _interopRequireDefault(_HomeActions);
 
-var _underscore = require('underscore');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1163,7 +1146,7 @@ var Home = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _HomeStore2.default.listen(this.onChange);
-      _HomeActions2.default.getTwoCharacters();
+      _HomeActions2.default.getAllGoods();
     }
   }, {
     key: 'componentWillUnmount',
@@ -1179,22 +1162,50 @@ var Home = function (_React$Component) {
     key: 'handleClick',
     value: function handleClick(character) {
       var winner = character.characterId;
-      var loser = (0, _underscore.first)((0, _underscore.without)(this.state.characters, (0, _underscore.findWhere)(this.state.characters, { characterId: winner }))).characterId;
+      var loser = first(without(this.state.characters, findWhere(this.state.characters, { characterId: winner }))).characterId;
       _HomeActions2.default.vote(winner, loser);
+    }
+  }, {
+    key: 'addOneThisGood',
+    value: function addOneThisGood(good) {
+      _HomeActions2.default.addOneThisGood(good);
+      /*var existGood = find(this.cart, (oneGood) => {
+          return oneGood.barcode == good.barcode;
+      });
+      if (!existGood) {
+          this.cart.push({barcode: good.barcode, name: good.name, num: 1});
+      } else {
+          existGood.num += 1;
+      }*/
+    }
+  }, {
+    key: 'cutOneThisGood',
+    value: function cutOneThisGood(good) {
+      _HomeActions2.default.cutOneThisGood(good);
+      /*var existGood = find(this.cart, (oneGood) => {
+          return oneGood.barcode == good.barcode;
+      });
+      if (existGood) {
+          if (existGood.num === 1) {
+              var index = indexOf(this.cart, existGood);
+              this.cart.splice(index, 1);
+          } else {
+              existGood.num -= 1;
+          }
+      }*/
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var characterNodes = this.state.characters.map(function (character, index) {
+      var goodNodes = this.state.goods.map(function (good, index) {
         return _react2.default.createElement(
           'div',
-          { key: character.characterId, className: index === 0 ? 'col-xs-6 col-sm-6 col-md-5 col-md-offset-1' : 'col-xs-6 col-sm-6 col-md-5' },
+          { key: good._id, className: index === 0 ? 'col-xs-6 col-sm-6 col-md-5 col-md-offset-1' : 'col-xs-6 col-sm-6 col-md-5' },
           _react2.default.createElement(
             'div',
             { className: 'thumbnail fadeInUp animated' },
-            _react2.default.createElement('img', { onClick: _this2.handleClick.bind(_this2, character), src: 'http://image.eveonline.com/Character/' + character.characterId + '_512.jpg' }),
             _react2.default.createElement(
               'div',
               { className: 'caption text-center' },
@@ -1207,10 +1218,10 @@ var Home = function (_React$Component) {
                   _react2.default.createElement(
                     'strong',
                     null,
-                    'Race:'
+                    ' 条形码： '
                   ),
                   ' ',
-                  character.race
+                  good.barcode
                 ),
                 _react2.default.createElement(
                   'li',
@@ -1218,27 +1229,81 @@ var Home = function (_React$Component) {
                   _react2.default.createElement(
                     'strong',
                     null,
-                    'Bloodline:'
+                    ' 商品名称： '
                   ),
                   ' ',
-                  character.bloodline
-                )
-              ),
-              _react2.default.createElement(
-                'h4',
-                null,
+                  good.name
+                ),
                 _react2.default.createElement(
-                  _reactRouter.Link,
-                  { to: '/characters/' + character.characterId },
+                  'li',
+                  null,
                   _react2.default.createElement(
                     'strong',
                     null,
-                    character.name
-                  )
+                    ' 商品单位： '
+                  ),
+                  ' ',
+                  good.unit
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    ' 商品种类： '
+                  ),
+                  ' ',
+                  good.category
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    ' 商品单价： '
+                  ),
+                  ' ',
+                  good.price
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    ' 优惠类型： '
+                  ),
+                  ' ',
+                  good.discount
                 )
+              ),
+              _react2.default.createElement(
+                'button',
+                { className: 'addOneThisGood', onClick: _this2.addOneThisGood.bind(_this2, good) },
+                ' + '
+              ),
+              _react2.default.createElement(
+                'button',
+                { className: 'cutOneThisGood', onClick: _this2.cutOneThisGood.bind(_this2, good) },
+                ' - '
               )
             )
           )
+        );
+      });
+
+      var cartNodes = this.state.cart.map(function (good, index) {
+        return _react2.default.createElement(
+          'div',
+          { key: good._id },
+          '条形码：',
+          good.barcode,
+          ', 名称：',
+          good.name,
+          ', 数量：',
+          good.num
         );
       });
 
@@ -1246,14 +1311,18 @@ var Home = function (_React$Component) {
         'div',
         { className: 'container' },
         _react2.default.createElement(
-          'h3',
-          { className: 'text-center' },
-          'Click on the portrait. Select your favorite.'
+          'div',
+          { className: 'row col-xs-6 col-sm-6 col-md-5' },
+          goodNodes
         ),
         _react2.default.createElement(
           'div',
-          { className: 'row' },
-          characterNodes
+          { className: 'row col-xs-6 col-sm-6 col-md-5' },
+          _react2.default.createElement(
+            'div',
+            null,
+            cartNodes
+          )
         )
       );
     }
@@ -1264,7 +1333,7 @@ var Home = function (_React$Component) {
 
 exports.default = Home;
 
-},{"../actions/HomeActions":5,"../stores/HomeStore":21,"react":"react","react-router":"react-router","underscore":"underscore"}],14:[function(require,module,exports){
+},{"../actions/HomeActions":5,"../stores/HomeStore":21,"react":"react","react-router":"react-router"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1775,7 +1844,7 @@ exports.default = _alt2.default.createStore(GoodStore);
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1788,41 +1857,67 @@ var _HomeActions = require('../actions/HomeActions');
 
 var _HomeActions2 = _interopRequireDefault(_HomeActions);
 
+var _underscore = require('underscore');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var HomeStore = function () {
-  function HomeStore() {
-    _classCallCheck(this, HomeStore);
+    function HomeStore() {
+        _classCallCheck(this, HomeStore);
 
-    this.bindActions(_HomeActions2.default);
-    this.characters = [];
-  }
+        this.bindActions(_HomeActions2.default);
+        this.goods = [];
+        this.cart = [];
+    }
 
-  _createClass(HomeStore, [{
-    key: 'onGetTwoCharactersSuccess',
-    value: function onGetTwoCharactersSuccess(data) {
-      this.characters = data;
-    }
-  }, {
-    key: 'onGetTwoCharactersFail',
-    value: function onGetTwoCharactersFail(errorMessage) {
-      toastr.error(errorMessage);
-    }
-  }, {
-    key: 'onVoteFail',
-    value: function onVoteFail(errorMessage) {
-      toastr.error(errorMessage);
-    }
-  }]);
+    _createClass(HomeStore, [{
+        key: 'onGetAllGoodsSuccess',
+        value: function onGetAllGoodsSuccess(data) {
+            this.goods = data;
+        }
+    }, {
+        key: 'onGetAllGoodsFail',
+        value: function onGetAllGoodsFail(errorMessage) {
+            toastr.error(errorMessage);
+        }
+    }, {
+        key: 'onAddOneThisGood',
+        value: function onAddOneThisGood(good) {
+            var existGood = (0, _underscore.find)(this.cart, function (oneCode) {
+                console.log(oneCode.barcode + '``````````````' + good.barcode);
+                return oneCode.barcode == good.barcode;
+            });
+            if (!existGood) {
+                this.cart.push({ barcode: good.barcode, name: good.name, num: 1 });
+            } else {
+                existGood.num += 1;
+            }
+        }
+    }, {
+        key: 'onCutOneThisGood',
+        value: function onCutOneThisGood(good) {
+            var existGood = (0, _underscore.find)(this.cart, function (oneGood) {
+                return oneGood.barcode == good.barcode;
+            });
+            if (existGood) {
+                if (existGood.num === 1) {
+                    var index = (0, _underscore.indexOf)(this.cart, existGood);
+                    this.cart.splice(index, 1);
+                } else {
+                    existGood.num -= 1;
+                }
+            }
+        }
+    }]);
 
-  return HomeStore;
+    return HomeStore;
 }();
 
 exports.default = _alt2.default.createStore(HomeStore);
 
-},{"../actions/HomeActions":5,"../alt":7}],22:[function(require,module,exports){
+},{"../actions/HomeActions":5,"../alt":7,"underscore":"underscore"}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

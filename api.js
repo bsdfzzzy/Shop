@@ -1,11 +1,12 @@
 const app = require('express')();
 const Good = require('./models/good');
 const _ = require('underscore');
+const utils = require('./utils');
 /**
  * GET /api/characters
  * Returns 2 random characters of the same gender that have not been voted yet.
  */
-app.get('/api/goods', function(req, res, next) {
+app.get('/api/goods', (req, res, next) => {
     Good.find((err, data) => {
         if (err) {
             return next(err);
@@ -18,7 +19,7 @@ app.get('/api/goods', function(req, res, next) {
  * PUT /api/good
  * Update discount of goods.
  */
-app.put('/api/goods/:id', function(req, res, next) {
+app.put('/api/goods/:id', (req, res, next) => {
     const id = req.params.id;
     const newDiscount = req.body.discount;
     Good.update({_id: id}, {$set: {discount: newDiscount}}, (e) => {
@@ -38,7 +39,7 @@ app.put('/api/goods/:id', function(req, res, next) {
  * GET /api/good/:id
  * Returns detailed good information.
  */
-app.get('/api/goods/:id', function(req, res, next) {
+app.get('/api/goods/:id', (req, res, next) => {
   var id = req.params.id;
 
   Good.findOne({ _id: id }, function(err, good) {
@@ -56,7 +57,7 @@ app.get('/api/goods/:id', function(req, res, next) {
  * POST /api/good
  * Adds new good to the database.
  */
-app.post('/api/good', function(req, res, next) {
+app.post('/api/good', (req, res, next) => {
   var name = req.body.name;
   var price = req.body.price;
   var category = req.body.category;
@@ -81,5 +82,17 @@ app.post('/api/good', function(req, res, next) {
     });
   }
 });
+
+app.post('/api/buyGoods', (req, res, next) => {
+    var want = req.body.input;
+
+    if (want) {
+        var buy = utils.arrayOperate(want);
+        buy.map((good, index) => {
+            Good.find({barcode: good.barcode});
+        });
+    }
+});
+
 
 module.exports = app;

@@ -3,34 +3,37 @@ import alt from '../alt';
 class HomeActions {
   constructor() {
     this.generateActions(
-      'getTwoCharactersSuccess',
-      'getTwoCharactersFail',
-      'voteFail'
+      'getAllGoodsSuccess',
+      'getAllGoodsFail',
+      'addOneThisGood',
+      'cutOneThisGood',
+      'buySuccess',
+      'buyFailed'
     );
   }
 
-  getTwoCharacters() {
-    $.ajax({ url: '/api/characters' })
+  getAllGoods() {
+    $.ajax({ url: '/api/goods' })
       .done(data => {
-        this.actions.getTwoCharactersSuccess(data);
+        this.actions.getAllGoodsSuccess(data);
       })
       .fail(jqXhr => {
-        this.actions.getTwoCharactersFail(jqXhr.responseJSON.message);
+        this.actions.getAllGoodsFail(jqXhr.responseJSON.message);
       });
   }
 
-  vote(winner, loser) {
+  buy(cart) {
     $.ajax({
-      type: 'PUT',
-      url: '/api/characters' ,
-      data: { winner: winner, loser: loser }
+        type: 'POST',
+        url: '/api/buyGoods',
+        data: cart
     })
-      .done(() => {
-        this.actions.getTwoCharacters();
-      })
-      .fail((jqXhr) => {
-        this.actions.voteFail(jqXhr.responseJSON.message);
-      });
+        .done(data => {
+            this.actions.buySuccess(data);
+        })
+        .fail(jqXhr => {
+            this.actions.buyFailed(jqXhr.responseJSON.message);
+        });
   }
 }
 

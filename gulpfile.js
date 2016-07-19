@@ -13,7 +13,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-
+var livereload = require('gulp-livereload');
 var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
@@ -70,7 +70,8 @@ gulp.task('browserify', ['browserify-vendor'], function() {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(gulpif(production, uglify({ mangle: false })))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('public/js'))
+    .pipe(livereload());
 });
 
 /*

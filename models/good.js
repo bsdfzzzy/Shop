@@ -4,7 +4,7 @@ var goodSchema = new mongoose.Schema({
   //goodId: { type: String, unique: true, index: true },
   name: { type: String, unique: true, index: true },
   unit: String,
-  barcode: String,
+  barcode: { type: String, unique: true },
   price: { type: Number, default: 0 },
   category: String,
   discount: { type: Number, default: 0 }
