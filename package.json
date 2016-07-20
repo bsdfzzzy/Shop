@@ -8,7 +8,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "istanbul cover -x ./app|models|public/**/*.js ./public && ./node_modules/.bin/_mocha",
+    "test": "istanbul cover -i ./server/**/*.js ./public && ./node_modules/.bin/_mocha",
     "start": "node ./server/server.js",
     "watch": "nodemon ./server/server.js",
     "postinstall": "bower install && gulp build"
