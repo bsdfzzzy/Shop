@@ -46,7 +46,7 @@ describe('test get/good and put/good API', () => {
                 }
                 res.body[0].name.should.equal('雪碧');
                 res.body[0].price.should.equal(3);
-                res.body[0].barcode.should.equal('ITEM000000');
+                res.body[0].barcode.should.equal('ITEM000001');
                 id = res.body[0].barcode;
                 done();
             });
@@ -70,8 +70,7 @@ describe('test get/good and put/good API', () => {
 });
 
 describe('test post/buyGood API', (done) => {
-    var want = {input: ['ITEM000000-3']};
-    var want2 = {input: ['ITEM000001-3']};
+    var want = {input: ['ITEM000001-3']};
     it('should return json for tip, total price 9', (done) => {
         request(app)
             .post('/api/buyGoods')
@@ -84,21 +83,6 @@ describe('test post/buyGood API', (done) => {
                 res.body.code.should.equal(1);
                 res.body.total.totalPrice.should.equal(8.55);
                 res.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(8.55);
-                done();
-            });
-    });
-
-    it('should return json for tip, single total price 8.55', (done) => {
-        request(app)
-            .post('/api/buyGoods')
-            .send(want2)
-            .expect(200)
-            .end((e, r) => {
-                if (e) {
-                    throw e;
-                }
-                r.body.code.should.equal(1);
-                r.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(8.55);
                 done();
             });
     });
