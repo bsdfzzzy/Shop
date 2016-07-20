@@ -44,9 +44,9 @@ describe('test get/good and put/good API', () => {
                 if (err) {
                     throw err;
                 }
-                res.body[0].name.should.equal('newName');
-                res.body[0].price.should.equal(1);
-                res.body[0].barcode.should.equal('newBarcod');
+                res.body[0].name.should.equal('可口可乐');
+                res.body[0].price.should.equal(3);
+                res.body[0].barcode.should.equal('ITEM000000');
                 id = res.body[3].barcode;
                 done();
             });
@@ -82,8 +82,8 @@ describe('test post/buyGood API', (done) => {
                     throw err;
                 }
                 res.body.code.should.equal(1);
-                res.body.total.totalPrice.should.equal(9);
-                res.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(9);
+                res.body.total.totalPrice.should.equal(8.55);
+                res.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(8.55);
                 done();
             });
     });
