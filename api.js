@@ -20,14 +20,14 @@ app.get('/api/goods', (req, res, next) => {
  * PUT /api/good
  * Update discount of goods.
  */
-app.put('/api/goods/:id', (req, res, next) => {
-    const id = req.params.id;
+app.put('/api/goods/:barcode', (req, res, next) => {
+    const barcode = req.params.barcode;
     const newDiscount = req.body.discount;
-    Good.update({_id: id}, {$set: {discount: newDiscount}}, (e) => {
+    Good.update({barcode: barcode}, {$set: {discount: newDiscount}}, (e) => {
         if (e) {
             return next(e);
         }
-        Good.findOne({_id: id}, (err, data) => {
+        Good.findOne({barcode: barcode}, (err, data) => {
             if (err) {
                 return next(err);
             }
@@ -40,10 +40,10 @@ app.put('/api/goods/:id', (req, res, next) => {
  * GET /api/good/:id
  * Returns detailed good information.
  */
-app.get('/api/goods/:id', (req, res, next) => {
-  var id = req.params.id;
+app.get('/api/goods/:barcode', (req, res, next) => {
+  var barcode = req.params.barcode;
 
-  Good.findOne({ _id: id }, function(err, good) {
+  Good.findOne({ barcode: barcode }, function(err, good) {
     if (err) return next(err);
 
     if (!good) {

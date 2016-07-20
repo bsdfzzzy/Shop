@@ -31,11 +31,11 @@ class AddGoodStore {
     this.priceValidationState = 'has-success';
     this.categoryValidationState = 'has-success';
     this.barcodeValidationState = 'has-success';
+    this.discountValidationState = 'has-success';
     this.helpBlock = "添加成功";
   }
 
   onAddGoodFail(errorMessage) {
-    this.nameValidationState = 'has-error';
     this.helpBlock = errorMessage;
   }
 

@@ -12,13 +12,6 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     NavbarStore.listen(this.onChange);
-    NavbarActions.getCharacterCount();
-
-    let socket = io.connect();
-
-    socket.on('onlineUsers', (data) => {
-      NavbarActions.updateOnlineUsers(data);
-    });
 
     $(document).ajaxStart(() => {
       NavbarActions.updateAjaxAnimation('fadeIn');
@@ -39,20 +32,6 @@ class Navbar extends React.Component {
     this.setState(state);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    let searchQuery = this.state.searchQuery.trim();
-
-    if (searchQuery) {
-      NavbarActions.findCharacter({
-        searchQuery: searchQuery,
-        searchForm: this.refs.searchForm,
-        history: this.props.history
-      });
-    }
-  }
-
   render() {
     return (
       <nav className='navbar navbar-default navbar-static-top'>
@@ -71,6 +50,7 @@ class Navbar extends React.Component {
           <ul className='nav navbar-nav'>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/add'>Add</Link></li>
+            <li><Link to='/change'>Change</Link></li>
           </ul>
         </div>
       </nav>
