@@ -1,7 +1,7 @@
 // Babel ES6/JSX Compiler
 require('babel-register');
 
-var path = require('path');
+var path = require('path');/* istanbul ignore next */
 var express = require('express');
 var bodyParser = require('body-parser');
 var compression = require('compression');
