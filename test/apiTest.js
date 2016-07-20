@@ -11,7 +11,7 @@ var newGood = {
     barcode: 'ITEM000001',
     price: 3,
     category: '食品',
-    discount: '0'
+    discount: '1'
 };
 
 describe('test post/good API', () => {
@@ -44,10 +44,10 @@ describe('test get/good and put/good API', () => {
                 if (err) {
                     throw err;
                 }
-                res.body[0].name.should.equal('可口可乐');
+                res.body[0].name.should.equal('雪碧');
                 res.body[0].price.should.equal(3);
                 res.body[0].barcode.should.equal('ITEM000000');
-                id = res.body[3].barcode;
+                id = res.body[0].barcode;
                 done();
             });
     });
