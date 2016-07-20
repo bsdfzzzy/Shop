@@ -2,7 +2,7 @@ const should = require('should');
 const request = require('supertest');
 const mongoose = require('mongoose');
 const config = require('../server/config');
-const app = require('../server');
+const app = require('../server/server');
 
 var url = 'http://localhost.com:3000';
 var newGood = {
