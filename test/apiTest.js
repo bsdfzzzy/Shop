@@ -15,7 +15,7 @@ var newGood = {
 };
 
 var newGood2 = {
-    name: '雪碧'
+    name: '雪碧',
     unit: '瓶',
     barcode: 'ITEM000001',
     price: 3,
