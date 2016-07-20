@@ -10,7 +10,8 @@ var newGood = {
     unit: '瓶',
     barcode: 'ITEM000001',
     price: 3,
-    category: '食品'
+    category: '食品',
+    discount: '0'
 };
 
 describe('test post/good API', () => {

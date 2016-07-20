@@ -10,8 +10,4 @@ var goodSchema = new mongoose.Schema({
   discount: { type: Number, default: 0 }
 });
 
-goodSchema.static.saveGood = (schema, cb) => {
-    this.create(schema, cb);
-}
-
 module.exports = mongoose.model('Good', goodSchema);

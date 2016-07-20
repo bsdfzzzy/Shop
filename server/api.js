@@ -17,7 +17,7 @@ app.get('/api/goods', (req, res, next) => {
 });
 
 /**
- * PUT /api/good
+ * PUT /api/good/:barcode
  * Update discount of goods.
  */
 app.put('/api/goods/:barcode', (req, res, next) => {
@@ -37,7 +37,7 @@ app.put('/api/goods/:barcode', (req, res, next) => {
 });
 
 /**
- * GET /api/good/:id
+ * GET /api/good/:barcode
  * Returns detailed good information.
  */
 app.get('/api/goods/:barcode', (req, res, next) => {
