@@ -7,19 +7,14 @@ var bodyParser = require('body-parser');
 var compression = require('compression');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var async = require('async');
-var colors = require('colors');
 var mongoose = require('mongoose');
-var request = require('request');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var Router = require('react-router');
 var swig  = require('swig');
-var xml2js = require('xml2js');
-var _ = require('underscore');
 
 var config = require('./config');
-var routes = require('./app/routes');
+var routes = require('../app/routes');
 
 var app = express();
 
@@ -33,8 +28,7 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', require('./api'));
 
@@ -60,25 +54,8 @@ app.use(function(err, req, res, next) {
   res.send({ message: err.message });
 });
 
-/**
- * Socket.io stuff.
- */
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-var onlineUsers = 0;
 
-io.sockets.on('connection', function(socket) {
-  onlineUsers++;
-
-  io.sockets.emit('onlineUsers', { onlineUsers: onlineUsers });
-
-  socket.on('disconnect', function() {
-    onlineUsers--;
-    io.sockets.emit('onlineUsers', { onlineUsers: onlineUsers });
-  });
-});
-
-server.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

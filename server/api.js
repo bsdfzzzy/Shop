@@ -1,11 +1,11 @@
 const app = require('express')();
-const Good = require('./models/good');
+const Good = require('../models/good');
 const _ = require('underscore');
 const utils = require('./utils');
-const async = require('async');
+
 /**
- * GET /api/characters
- * Returns 2 random characters of the same gender that have not been voted yet.
+ * GET /api/goods
+ * Return all goods
  */
 app.get('/api/goods', (req, res, next) => {
     Good.find((err, data) => {
@@ -86,9 +86,12 @@ app.post('/api/good', (req, res, next) => {
   }
 });
 
+/**
+ * POST /api/buyGoods
+ * Get the array of goods which want to buy and return a tip data
+ */
 app.post('/api/buyGoods', (req, res, next) => {
     var want = req.body.input;
-    console.log(want);
     var boughtGoodsInformation = [], buyTwoSaveOne = [], total = {totalPrice: 0, totalSave: 0};
     if (want) {
         var buy = utils.arrayOperate(want);

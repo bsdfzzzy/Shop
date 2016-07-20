@@ -46,7 +46,7 @@ describe('test get/good and put/good API', () => {
                 res.body[0].name.should.equal('newName');
                 res.body[0].price.should.equal(1);
                 res.body[0].barcode.should.equal('newBarcod');
-                id = res.body[3]._id;
+                id = res.body[3].barcode;
                 done();
             });
     });
