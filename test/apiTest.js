@@ -114,7 +114,7 @@ describe('test get/good and put/good API', () => {
 
 describe('test post/buyGood API', (done) => {
     var want = {input: ['ITEM000001-3']};
-    it('should return json for tip, total price 9', (done) => {
+    it('should return json for tip, total price 6', (done) => {
         request(app)
             .post('/api/buyGoods')
             .send(want)
@@ -124,13 +124,13 @@ describe('test post/buyGood API', (done) => {
                     throw err;
                 }
                 res.body.code.should.equal(1);
-                res.body.total.totalPrice.should.equal(8.55);
-                res.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(8.55);
+                res.body.total.totalPrice.should.equal(6);
+                res.body.boughtGoodsInformation[0].singleTotalPrice.should.equal(6);
                 done();
             });
     });
 
-    it('should return json for tip, total price 3', done => {
+    it('should return json for tip, with twoSaveOne and 0.95 percents discount', done => {
         var want2 = {input: ['ITEM000000-4','ITEM000001-3']}
         request(app)
             .post('/api/buyGoods')
