@@ -1,7 +1,7 @@
 const should = require('should');
 const request = require('supertest');
 const mongoose = require('mongoose');
-const config = require('../config');
+const config = require('../server/config');
 const app = require('../server');
 
 var url = 'http://localhost.com:3000';
