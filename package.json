@@ -8,7 +8,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha",
+    "test": "istanbul cover ./node_modules/.bin/_mocha",
     "start": "node ./server/server.js",
     "watch": "nodemon ./server/server.js",
     "postinstall": "bower install && gulp build"
@@ -58,6 +58,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
     "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
     "should": "^9.0.2",
     "supertest": "^1.2.0",
