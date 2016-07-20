@@ -8,11 +8,11 @@
 
 
 ##front-end
-	GULP
-	REACT + FLUX + LESS
+	gulp
+	react + flux + less
 
 ##back-end
-	EXPRESS
+	express + mongodb
 
 ##test-framework
 	mocha + supertest + should
