@@ -81,7 +81,7 @@ describe('test get/good and put/good API', () => {
     });
 
     it('should return a code of 1 if success update data', (done) => {
-        const url = '/api/goods' + id;
+        const url = '/api/goods/' + id;
         request(app)
             .put(url)
             .send({discount: 1})
@@ -96,7 +96,7 @@ describe('test get/good and put/good API', () => {
     });
 
     it('should return a code of 1 if success update data', done => {
-        const url2 = '/api/goods' + id2;
+        const url2 = '/api/goods/' + id2;
         request(app)
             .put(url2)
             .send({discount: 2})
