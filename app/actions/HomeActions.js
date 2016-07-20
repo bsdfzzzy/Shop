@@ -8,7 +8,7 @@ class HomeActions {
       'addOneThisGood',
       'cutOneThisGood',
       'buySuccess',
-      'buyFailed'
+      'buyFail'
     );
   }
 
@@ -22,16 +22,21 @@ class HomeActions {
       });
   }
 
-  buy(cart) {
+  buy(want) {
+    var send = JSON.stringify({input: want});
     $.ajax({
         type: 'POST',
         url: '/api/buyGoods',
-        data: cart
+        data: send,
+        contentType: 'application/json',
+        beforeSend: () => {
+            console.log(want);
+        }
     })
-        .done(data => {
+        .done((data) => {
             this.actions.buySuccess(data);
         })
-        .fail(jqXhr => {
+        .fail((jqXhr) => {
             this.actions.buyFailed(jqXhr.responseJSON.message);
         });
   }

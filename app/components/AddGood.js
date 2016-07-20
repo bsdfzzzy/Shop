@@ -25,19 +25,44 @@ class AddGood extends React.Component {
     event.preventDefault();
 
     var name = this.state.name.trim();
-    var gender = this.state.gender;
+    var unit = this.state.unit.trim();
+    var price = this.state.price;
+    var category = this.state.category.trim();
+    var barcode = this.state.barcode.trim();
+    var discount = this.state.discount;
 
     if (!name) {
       AddGoodActions.invalidName();
       this.refs.nameTextField.focus();
     }
 
-    if (!gender) {
-      AddGoodActions.invalidGender();
+    if (!unit) {
+      AddGoodActions.invalidUnit();
+      this.refs.unitTextField.focus();
     }
 
-    if (name && gender) {
-      AddGoodActions.addGood(name, gender);
+    if (!price) {
+        AddGoodActions.invalidPrice();
+        this.refs.priceTextField.focus();
+    }
+
+    if (!category) {
+        AddGoodActions.invalidCategory();
+        this.refs.categoryTextField.focus();
+    }
+
+    if (!barcode) {
+        AddGoodActions.invalidBarcode();
+        this.refs.barcodeTextField.focus();
+    }
+
+    if (!discount) {
+        AddGoodActions.invalidDiscount();
+        this.refs.discountTextField.focus();
+    }
+
+    if (name && unit && price && category && barcode && discount) {
+      AddGoodActions.addGood(name, unit, price, category, barcode, discount);
     }
   }
 
@@ -63,7 +88,7 @@ class AddGood extends React.Component {
                   </div>
                   <div className={'form-group ' + this.state.priceValidationState}>
                     <label className='control-label'>商品单价</label>
-                    <input type='text' className='form-control' ref='priceTextField' value={this.state.price} onChange={AddGoodActions.updatePrice}/>
+                    <input type='number' className='form-control' ref='priceTextField' value={this.state.price} onChange={AddGoodActions.updatePrice}/>
                     <span className='help-block'>{this.state.priceHelpBlock}</span>
                   </div>
                   <div className={'form-group ' + this.state.categoryValidationState}>
@@ -76,7 +101,17 @@ class AddGood extends React.Component {
                     <input type='text' className='form-control' ref='barcodeTextField' value={this.state.barcode} onChange={AddGoodActions.updateBarcode}/>
                     <span className='help-block'>{this.state.barcodeHelpBlock}</span>
                   </div>
+                  <div className={'form-group ' + this.state.barcodeValidationState}>
+                    <label className='control-label'>商品优惠形式</label>
+                    <select className='form-control' ref='discountTextField' onChange={AddGoodActions.updateDiscount}>
+                      <option value="0">没有优惠</option>
+                      <option value="1">九五折</option>
+                      <option value="2">买二增一</option>
+                    </select>
+                    <span className='help-block'>{this.state.discountHelpBlock}</span>
+                  </div>
                   <button type='submit' className='btn btn-primary'>Submit</button>
+                  <span className='help-block'>{this.state.helpBlock}</span>
                 </form>
               </div>
             </div>

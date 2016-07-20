@@ -6,22 +6,32 @@ class AddGoodStore {
     this.bindActions(AddGoodActions);
     this.name = '';
     this.unit = '';
+    this.category = '';
+    this.price = 0;
+    this.barcode = '';
+    this.discount = '';
     this.helpBlock = '';
     this.nameHelpBlock = '';
     this.unitHelpBlock = '';
     this.priceHelpBlock = '';
     this.categoryHelpBlock= '';
     this.barcodeHelpBlock = '';
+    this.discountHelpBlock = '';
     this.nameValidationState = '';
     this.unitValidationState = '';
     this.priceValidationState = '';
     this.categoryValidationState = '';
     this.barcodeValidationState = '';
+    this.discountValidationState = '';
   }
 
   onAddGoodSuccess(successMessage) {
     this.nameValidationState = 'has-success';
-    this.helpBlock = successMessage;
+    this.unitValidationState = 'has-success';
+    this.priceValidationState = 'has-success';
+    this.categoryValidationState = 'has-success';
+    this.barcodeValidationState = 'has-success';
+    this.helpBlock = "添加成功";
   }
 
   onAddGoodFail(errorMessage) {
@@ -32,12 +42,37 @@ class AddGoodStore {
   onUpdateName(event) {
     this.name = event.target.value;
     this.nameValidationState = '';
-    this.helpBlock = '';
+    this.nameHelpBlock = '';
   }
 
-  onUpdateGender(event) {
-    this.gender = event.target.value;
-    this.genderValidationState = '';
+  onUpdateUnit(event) {
+    this.unit = event.target.value;
+    this.unitValidationState = '';
+    this.unitHelpBlock = '';
+  }
+
+  onUpdatePrice(event) {
+    this.price = event.target.value;
+    this.priceValidationState = '';
+    this.priceHelpBlock = '';
+  }
+
+  onUpdateCategory(event) {
+    this.category = event.target.value;
+    this.categoryValidationState = '';
+    this.categoryHelpBlock = '';
+  }
+
+  onUpdateBarcode(event) {
+    this.barcode = event.target.value;
+    this.barcodeValidationState = '';
+    this.barcodeHelpBlock = '';
+  }
+
+  onUpdateDiscount(event) {
+    this.discount = event.target.value;
+    this.discountValidationState = '';
+    this.discountHelpBlock = '';
   }
 
   onInvalidName() {
@@ -47,19 +82,23 @@ class AddGoodStore {
 
   onInvalidUnit() {
     this.unitValidationState = 'has-error';
-    this.unitHelpBlock = '';
+    this.unitHelpBlock = 'Please enter a Good unit.';
   }
   onInvalidPrice() {
     this.priceValidationState = 'has-error';
-    this.priceHelpBlock = '';
+    this.priceHelpBlock = 'Please enter a Good price.';
   }
   onInvalidCategory() {
     this.categoryValidationState = 'has-error';
-    this.categoryHelpBlock = '';
+    this.categoryHelpBlock = 'Please enter a Good category.';
   }
   onInvalidBarcode() {
     this.barcodeValidationState = 'has-error';
-    this.barcodeHelpBlock = '';
+    this.barcodeHelpBlock = 'Please enter a Good barcode.';
+  }
+  onInvalidDiscount() {
+    this.discountValidationState = 'has-error';
+    this.discountHelpBlock = 'Please select a Good discount';
   }
 }
 

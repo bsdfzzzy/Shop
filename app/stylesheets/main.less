@@ -63,26 +63,6 @@ footer {
   background-color: #3b3f51;
 }
 
-footer a {
-  color: #fff;
-  text-decoration: underline;
-
-  &:hover,
-  &:focus {
-    color: #fff;
-    text-decoration: none;
-  }
-}
-
-footer .thumb-md {
-  border: 1px solid rgba(255,255,255,.15);
-  transition: border .1s linear;
-
-  &:hover {
-    border-color: rgba(255,255,255,.3);
-  }
-}
-
 .badge-danger {
   color: #fff;
   background-color: #f05150;
@@ -788,23 +768,55 @@ label {
   }
 }
 
+.goods{
+    width: 100%;
+    margin: 1em;
+    padding: 1em;
+    text-align:left;
+}
+
 .addOneThisGood{
-    width: 1em;
-    height: 1em;
+    width: 6em;
     border-radius: 2em;
-    font-size: 3em;
+    font-size: 1em;
+    color: white;
     background: green;
+    outline: none;
 }
 
 .cutOneThisGood{
-    width: 1em;
-    height: 1em;
+    width: 6em;
     border-radius: 2em;
-    font-size: 3em;
+    font-size: 1em;
+    color: white;
     background: red;
+    outline: none;
+}
+
+.cartContainer{
+    vertical-align: text-top;
+}
+
+.cart{
+    margin-top: 0;
+    width: 100%;
+    background: white;
+    padding: 1em;
 }
 
 .buy{
-    width:3em;
-    height:0.5em;
+    width:10em;
+    height:3em;
+    border-radius: 2em;
+    cursor: pointer;
+    background: #996732;
+    color: white;
+    font-size: 1em;
+    margin: auto;
+}
+
+.tip{
+    background: white;
+    padding: 1em;
+    margin-top: 1em;
 }

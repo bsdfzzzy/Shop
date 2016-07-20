@@ -6,17 +6,27 @@ class AddGoodActions {
       'addGoodSuccess',
       'addGoodFail',
       'updateName',
-      'updateGender',
+      'updateUnit',
+      'updatePrice',
+      'updateCategory',
+      'updateBarcode',
+      'updateDiscount',
       'invalidName',
-      'invalidGender'
+      'invalidUnit',
+      'invalidPrice',
+      'invalidCategory',
+      'invalidBarcode',
+      'invalidDiscount'
     );
   }
 
-  addGood(name, gender) {
+  addGood(name, unit, price, category, barcode, discount) {
+    var newGood = JSON.stringify({name: name, unit: unit, price: price, category: category, barcode: barcode, discount: discount});
     $.ajax({
       type: 'POST',
-      url: '/api/Goods',
-      data: { name: name, gender: gender }
+      url: '/api/good',
+      data: newGood,
+      contentType: 'application/json'
     })
       .done((data) => {
         this.actions.addGoodSuccess(data.message);

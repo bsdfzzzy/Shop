@@ -7,10 +7,21 @@ class HomeStore {
     this.bindActions(HomeActions);
     this.goods = [];
     this.cart = [];
-    this.tipData = {};
+    this.tipData = {boughtGoodsInformation: [], buyTwoSaveOne: []};
   }
 
   onGetAllGoodsSuccess(data) {
+    data.map((good, index) => {
+        if(good.discount == 0) {
+            good.discount = "没有优惠";
+        } else if (good.discount == 1) {
+            good.discount = "九五折";
+        } else if (good.discount == 2) {
+            good.discount = "买二增一";
+        } else {
+            good.discount = "错误";
+        }
+    });
     this.goods = data;
   }
 
@@ -20,7 +31,6 @@ class HomeStore {
 
   onAddOneThisGood(good) {
     var existGood = find(this.cart, (oneCode) => {
-        console.log(oneCode.barcode + '``````````````' + good.barcode);
         return oneCode.barcode == good.barcode;
     });
     if (!existGood) {
@@ -46,9 +56,11 @@ class HomeStore {
 
   onBuySuccess(data) {
     this.tipData = data;
+    console.log(this.tipData);
   }
 
-  onBuyFailed(errorMessage) {
+  onBuyFail(errorMessage) {
+    console.log(this.tipData);
     toastr.error(errorMessage);
   }
 }

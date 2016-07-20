@@ -1,7 +1,7 @@
 var _ = require('underscore');
-var utils;
+var utils = function (){};
 
-utils.prototype.arrayOperate = (array) => {
+utils.arrayOperate = (array) => {
     var newArray = [];
     array.map((item, index) => {
         var parseItem = item.match(/(ITEM[0-9]+)-(\d+)/);
