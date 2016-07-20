@@ -128,7 +128,7 @@ class Home extends React.Component {
       <div className='container'>
         <table>
           <tr>
-            <td className='row col-xs-7 col-sm-7 col-md-6'>
+            <td className='row col-xs-7 col-sm-7 col-md-6 goodContainer'>
               {goodNodes}
               <button className='buy row col-xs-4 col-sm-4 col-md-2' onClick={this.handleBuy.bind(this, this.state.cart)}>点击购买购物车中物品</button>
             </td>
