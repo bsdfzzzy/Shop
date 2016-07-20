@@ -37,24 +37,6 @@ app.put('/api/goods/:barcode', (req, res, next) => {
 });
 
 /**
- * GET /api/good/:barcode
- * Returns detailed good information.
- */
-app.get('/api/goods/:barcode', (req, res, next) => {
-  var barcode = req.params.barcode;
-
-  Good.findOne({ barcode: barcode }, function(err, good) {
-    if (err) return next(err);
-
-    if (!good) {
-      return res.status(404).send({ message: 'Good not found.' });
-    }
-
-    res.send(good);
-  });
-});
-
-/**
  * POST /api/good
  * Adds new good to the database.
  */
